@@ -20,6 +20,8 @@
     })
 
     let position = 0;
+    let index = 0;
+    let ancienIndex = -1;
 
     /**
      * Pour chaque image de la galerie , ajoute  le dans le carrousel
@@ -57,8 +59,18 @@
         rad.setAttribute('name', 'carrousel__rad');
         rad.classList.add('carrousel__rad');
         rad.dataset.index = position;
-        position = position + 1;
-        carrousel__form.appendChild(rad)
+        rad.addEventListener('mousedown', function(){
+            index = this.dataset.index
+            //console.log(this.dataset.index)
+            
+            if(ancienIndex != -1){
+                carrousel__figure.children[ancienIndex].style.opacity = "0";
+            }
+            carrousel__figure.children[index].style.opacity = "1";
+            ancienIndex = index;
+        })
+        position = position + 1; //Incrémentation de la position
+        carrousel__form.append(rad)
     }
 
 
