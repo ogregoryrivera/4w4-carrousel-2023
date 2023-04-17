@@ -1,5 +1,5 @@
 .carrousel{ //Boîte modale
-    position: fixed;
+    position: absolute;
     width: 50%;
     height: 50%;
     top: 25%;
@@ -36,4 +36,18 @@
         height: 100%;
     }
     
+}
+
+.carrousel__form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    border: solid 1px #fff;
+}
+
+.carrousel__rad{
+    display: inline-block;
+    margin: 2px;
 }
