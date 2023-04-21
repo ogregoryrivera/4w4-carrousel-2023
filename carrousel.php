@@ -30,8 +30,11 @@
     function creation_carrousel(){
         return("<button class='carrousel__ouvrir'>Ouvrir le carrousel</button>
         <div class='carrousel'>
+        <button class='carrousel__precedent'>précédent</button>
+        <button class='carrousel__suivant'>suivant</button>
         <button class='carrousel__x'>X</button>
         <figure class='carrousel__figure'></figure>
+        
         <form class='carrousel__form'></form>
 
 
