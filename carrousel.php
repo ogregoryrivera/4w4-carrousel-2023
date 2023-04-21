@@ -45,5 +45,5 @@
     }
 
     add_shortcode('carrousel', 'creation_carrousel');
-?> 
+
 
