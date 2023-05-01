@@ -5,14 +5,16 @@
     let carrousel__x = document.querySelector('.carrousel__x');
     let carrousel__figure = document.querySelector('.carrousel__figure');
     let carrousel__form = document.querySelector('.carrousel__form');
+    let carrousel__suivant = document.querySelector('.carrousel__suivant');
+    let carrousel__precedent = document.querySelector('.carrousel__precedent');
     console.log(carrousel__form.tagName) //Conteneur de radio-boutons
 
     let galerie = document.querySelector('.galerie');
     let galerie__img = galerie.querySelectorAll('img');
-
+    console.log('galerie__img.length : ' + galerie__img.length)
     carrousel__ouvrir.addEventListener('mousedown', function(){
-        carrousel.classList.add('carrousel--activer')
-        ajouter_les_images_de_galerie()
+        carrousel.classList.add('carrousel--activer');
+        affiche_image_carrousel()
     })
 
     carrousel__x.addEventListener('mousedown', function(){
@@ -20,7 +22,7 @@
     })
 
     
-
+    
 
 
     let position = 0;
@@ -31,7 +33,7 @@
      * Pour chaque image de la galerie , ajoute  le dans le carrousel
      */
 
-    
+
 
         for(const elem of galerie__img){
             //console.log(elem.getAttribute('src'))
@@ -50,6 +52,8 @@
 
             
         }
+
+        
    
 
     /**
@@ -89,8 +93,11 @@
 
         console.log(position);
         
+        rad.addEventListener('mousedown',function(){
+            index=this.dataset.index;
+            affiche_image_carrousel(index);
+        })
     }
-
     
 
 
@@ -100,21 +107,37 @@
 
     function affiche_image_carrousel(){
         if(ancienIndex != -1){
-            carrousel__figure.children[ancienIndex].style.opacity = "0";
-            carrousel__form.children[ancienIndex].checked = false;
-            //carrousel__figure.children[ancienIndex].classList.remove('carrousel__img--activer');
-
+            //carrousel__figure.children[ancienIndex].style.opacity = "0";
+            //carrousel__form.children[ancienIndex].checked = false;
+            carrousel__figure.children[ancienIndex].classList.remove('carrousel__img--activer');
+            carrousel__form.children[ancienIndex].checked = false
         }
-        carrousel__figure.children[index].style.opacity = "1";
+        //carrousel__figure.children[index].style.opacity = "1";
         carrousel__form.children[index].checked = true;
-        //carrousel__figure.children[index].classList.add('carrousel__img--activer');
+        carrousel__figure.children[index].classList.add('carrousel__img--activer');
         ancienIndex = index;
 
-        carrousel__suivant.addEventListener('mousedown', function(){
-            position++;
-        })
+        
     }
     
+    carrousel__suivant.addEventListener('mousedown', function(){
+        
+        index = index + 1;
+        console.log(index + " - " + galerie__img.length)
+        if(galerie__img.length == index){
+            index = 0;
+        }
+        
+        affiche_image_carrousel();
+    })
+    carrousel__precedent.addEventListener('mousedown', function(){
+        
+        index = index - 1;
 
-
+        if(-1 == index){
+            index = galerie__img.length -1 ;
+        }
+        
+        affiche_image_carrousel();
+    })
 })()
