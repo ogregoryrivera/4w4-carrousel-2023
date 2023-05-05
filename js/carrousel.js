@@ -46,7 +46,9 @@
             //console.log(this.dataset.index);
             index = this.dataset.index;
             affiche_image_carrousel();
-
+            if(carrousel.classList.contains('carrousel--activer') == false){
+                carrousel.classList.add('carrousel--activer')
+            }
             
           })
 
@@ -64,7 +66,7 @@
     function ajout_une_image_dans_carrousel(elem){
         let img = document.createElement('img');
             img.classList.add('carrousel__img')
-            img.src = elem.getAttribute('src');
+            img.src = elem.getAttribute('src').substr(0,elem.src.length-12) + ".jpg";
             //console.log(img.src);
             carrousel__figure.appendChild(img);
 
@@ -113,16 +115,49 @@
             carrousel__form.children[ancienIndex].checked = false
         }
         //carrousel__figure.children[index].style.opacity = "1";
+        redimensionner_carrousel()
         carrousel__form.children[index].checked = true;
         carrousel__figure.children[index].classList.add('carrousel__img--activer');
         ancienIndex = index;
 
         
     }
+
+    function redimensionner_carrousel(){
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
+        const imageWidth = carrousel__figure.children[index].naturalWidth
+        const imageHeight = carrousel__figure.children[index].naturalHeight
+        let carrouselWidth = carrousel.offsetWidth;
+        let carrouselHeight = carrousel.offsetHeight;
+
+        
+
+        carrouselWidth = windowWidth - windowWidth/2
+        carrouselHeight = carrouselWidth * imageHeight/imageWidth
+
+        carrousel.style.width = `${carrouselWidth}px`
+        carrousel.style.height = `${carrouselHeight}px`
+
+        carrousel.style.left = `${(windowWidth - carrouselWidth)/2}px`
+        carrousel.style.top = `${(windowHeight - carrouselHeight)/2}px`
+
+
+        console.log(
+            `windowWidth=${windowWidth}
+            windowHeight=${windowHeight}
+            imageHeight=${imageWidth}
+            imageHeight=${imageHeight}
+            carrouselWidth=${carrouselWidth}
+            carrouselHeight=${carrouselHeight}`
+        )
+
+        
+    }
     
     carrousel__suivant.addEventListener('mousedown', function(){
         
-        index = index + 1;
+        index++;
         console.log(index + " - " + galerie__img.length)
         if(galerie__img.length == index){
             index = 0;
